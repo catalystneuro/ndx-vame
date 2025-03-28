@@ -1,0 +1,11 @@
+namespaces:
+- author:
+  - Luiz Tauffer
+  contact:
+  - luiz.tauffer@catalystneuro.com
+  doc: NWB extension for VAME
+  name: ndx-vame
+  schema:
+  - namespace: core
+  - source: ndx-vame.extensions.yaml
+  version: 0.1.0
