@@ -2,6 +2,11 @@ from importlib.resources import files
 import os
 from pynwb import load_namespaces, get_class
 
+# NOTE: ndx-pose needs to be imported first because loading the ndx-vame namespace depends on
+# having the ndx-pose namespace loaded into the global type map.
+from ndx_pose import PoseEstimation
+
+
 # Get path to the namespace.yaml file with the expected location when installed not in editable mode
 __location_of_this_file = files(__name__)
 __spec_path = __location_of_this_file / "spec" / "ndx-vame.namespace.yaml"
@@ -13,15 +18,18 @@ if not os.path.exists(__spec_path):
 # Load the namespace
 load_namespaces(str(__spec_path))
 
-# TODO: Define your classes here to make them accessible at the package level.
+# Define your classes here to make them accessible at the package level.
 # Either have PyNWB generate a class from the spec using `get_class` as shown
 # below or write a custom class and register it using the class decorator
-# `@register_class("TetrodeSeries", "ndx-vame")`
-TetrodeSeries = get_class("TetrodeSeries", "ndx-vame")
+MotifSeries = get_class("MotifSeries", "ndx-vame")
+CommunitySeries = get_class("CommunitySeries", "ndx-vame")
+VAMEGroup = get_class("VAMEGroup", "ndx-vame")
 
-# TODO: Add all classes to __all__ to make them accessible at the package level
+# Add all classes to __all__ to make them accessible at the package level
 __all__ = [
-    "TetrodeSeries",
+    "MotifSeries",
+    "CommunitySeries",
+    "VAMEGroup",
 ]
 
 # Remove these functions/modules from the package

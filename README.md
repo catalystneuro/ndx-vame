@@ -1,15 +1,16 @@
 # ndx-vame Extension for NWB
 
-NWB extension for VAME
+NWB extension for [VAME](https://github.com/EthoML/VAME).
 
 ## Installation
 
+```bash
+pip install ndx-vame
+```
 
 ## Usage
 
-```python
-
-```
+See examples folder.
 
 ---
 This extension was created using [ndx-template](https://github.com/nwb-extensions/ndx-template).

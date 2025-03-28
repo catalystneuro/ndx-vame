@@ -1,8 +1,64 @@
 groups:
-- neurodata_type_def: TetrodeSeries
-  neurodata_type_inc: ElectricalSeries
-  doc: An extension of ElectricalSeries to include the tetrode ID for each time series.
+- neurodata_type_def: MotifSeries
+  neurodata_type_inc: TimeSeries
+  doc: An extension of TimeSeries to include relevant information about the VAME motif
+    data.
   attributes:
-  - name: trode_id
-    dtype: int32
-    doc: The tetrode ID.
+  - name: unit
+    dtype: text
+    default_value: n/a
+    doc: The base unit of measurement. Non-applicable for this data type.
+    required: false
+- neurodata_type_def: CommunitySeries
+  neurodata_type_inc: TimeSeries
+  doc: An extension of TimeSeries to include relevant information about the VAME community
+    data.
+  attributes:
+  - name: unit
+    dtype: text
+    default_value: n/a
+    doc: The base unit of measurement. Non-applicable for this data type.
+    required: false
+  links:
+  - name: motif_series
+    target_type: MotifSeries
+    doc: The motif series associated with this community series.
+    quantity: '?'
+- neurodata_type_def: VAMEGroup
+  neurodata_type_inc: NWBDataInterface
+  doc: A group to hold VAME data.
+  attributes:
+  - name: vame_settings
+    dtype: text
+    doc: The VAME settings.
+  groups:
+  - neurodata_type_def: MotifSeries
+    neurodata_type_inc: TimeSeries
+    doc: An extension of TimeSeries to include relevant information about the VAME
+      motif data.
+    attributes:
+    - name: unit
+      dtype: text
+      default_value: n/a
+      doc: The base unit of measurement. Non-applicable for this data type.
+      required: false
+  - neurodata_type_def: CommunitySeries
+    neurodata_type_inc: TimeSeries
+    doc: An extension of TimeSeries to include relevant information about the VAME
+      community data.
+    attributes:
+    - name: unit
+      dtype: text
+      default_value: n/a
+      doc: The base unit of measurement. Non-applicable for this data type.
+      required: false
+    links:
+    - name: motif_series
+      target_type: MotifSeries
+      doc: The motif series associated with this community series.
+      quantity: '?'
+  links:
+  - name: pose_estimation
+    target_type: PoseEstimation
+    doc: The pose estimation data used to generate the VAME data.
+    quantity: '?'

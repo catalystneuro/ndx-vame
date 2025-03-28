@@ -5,9 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "ndx-vame"
 version = "0.1.0"
-authors = [
-    { name="Luiz Tauffer", email="luiz.tauffer@catalystneuro.com" },
-]
+authors = [{ name = "Luiz Tauffer", email = "luiz.tauffer@catalystneuro.com" }]
 description = "NWB extension for VAME"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -25,16 +23,8 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
 ]
-keywords = [
-    'NeurodataWithoutBorders',
-    'NWB',
-    'nwb-extension',
-    'ndx-extension',
-]
-dependencies = [
-    "pynwb>=2.8.0",
-    "hdmf>=3.14.1",
-]
+keywords = ['NeurodataWithoutBorders', 'NWB', 'nwb-extension', 'ndx-extension']
+dependencies = ["pynwb>=2.8.0", "hdmf>=3.14.1", "ndx-pose>=0.2.1"]
 
 [project.optional-dependencies]
 test = [
@@ -45,9 +35,7 @@ test = [
     "python-dateutil>=2.8.2",
 ]
 
-docs = [
-    "hdmf-docutils>=0.4.7",
-]
+docs = ["hdmf-docutils>=0.4.7"]
 
 dev = [
     "black>=24.4.2",
@@ -58,26 +46,19 @@ dev = [
 ]
 
 # minimum requirements of project dependencies for testing (see .github/workflows/run_all_tests.yml)
-min-reqs = [
-    "pynwb==2.8.0",
-    "hdmf==3.14.1",
-]
+min-reqs = ["pynwb==2.8.0", "hdmf==3.14.1"]
 
-# TODO: add URLs before release
-# [project.urls]
-# "Homepage" = "https://github.com/organization/package"
-# "Documentation" = "https://package.readthedocs.io/"
-# "Bug Tracker" = "https://github.com/organization/package/issues"
-# "Discussions" = "https://github.com/organization/package/discussions"
-# "Changelog" = "https://github.com/organization/package/blob/main/CHANGELOG.md"
+[project.urls]
+"Homepage" = "https://github.com/catalystneuro/ndx-vame"
+"Documentation" = "https://ndx-vame.readthedocs.io/"
+"Bug Tracker" = "https://github.com/catalystneuro/ndx-vame/issues"
+"Discussions" = "https://github.com/catalystneuro/ndx-vame/discussions"
+"Changelog" = "https://github.com/catalystneuro/ndx-vame/blob/main/CHANGELOG.md"
 
 # Include only the source code under `src/pynwb/ndx_vame` and the spec files under `spec`
 # in the wheel.
 [tool.hatch.build.targets.wheel]
-packages = [
-    "src/pynwb/ndx_vame",
-    "spec"
-]
+packages = ["src/pynwb/ndx_vame", "spec"]
 
 # Rewrite the path to the `spec` directory to `ndx_vame/spec`.
 # `ndx_vame/__init__.py` will look there first for the spec files.
@@ -92,10 +73,7 @@ packages = [
 # The source distribution includes everything in the package except for the `src/matnwb` directory and
 # git and github-related files.
 [tool.hatch.build.targets.sdist]
-exclude = [
-    ".git*",
-    "src/matnwb",
-]
+exclude = [".git*", "src/matnwb"]
 
 [tool.pytest.ini_options]
 # uncomment below to run pytest always with code coverage reporting. NOTE: breakpoints may not work
@@ -109,10 +87,7 @@ branch = true
 source = ["ndx_vame"]
 
 [tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "@abstract"
-]
+exclude_lines = ["pragma: no cover", "@abstract"]
 
 [tool.black]
 line-length = 120
@@ -121,9 +96,7 @@ exclude = ".git|.mypy_cache|.tox|.venv|venv|.ipynb_checkpoints|_build/|dist/|__p
 
 [tool.ruff]
 lint.select = ["E", "F", "T100", "T201", "T203", "C901"]
-exclude = [
-  "docs/source/conf.py",
-]
+exclude = ["docs/source/conf.py"]
 line-length = 120
 
 [tool.ruff.lint.per-file-ignores]
