@@ -64,14 +64,14 @@ def main():
                 name="motif_series",
                 doc="The motif series associated with this community series.",
                 target_type="MotifSeries",
-                quantity='?',
+                quantity="?",
             ),
         ],
     )
 
     vame_group = NWBGroupSpec(
         neurodata_type_def="VAMEGroup",
-        neurodata_type_inc='NWBDataInterface',
+        neurodata_type_inc="NWBDataInterface",
         doc="A group to hold VAME data.",
         attributes=[
             NWBAttributeSpec(
@@ -90,7 +90,7 @@ def main():
                 name="pose_estimation",
                 doc="The pose estimation data used to generate the VAME data.",
                 target_type="PoseEstimation",
-                quantity='?',
+                quantity="?",
             ),
         ],
     )
