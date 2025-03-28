@@ -96,7 +96,7 @@ exclude = ".git|.mypy_cache|.tox|.venv|venv|.ipynb_checkpoints|_build/|dist/|__p
 
 [tool.ruff]
 lint.select = ["E", "F", "T100", "T201", "T203", "C901"]
-exclude = ["docs/source/conf.py"]
+exclude = ["docs/source/conf.py", "examples/"]
 line-length = 120
 
 [tool.ruff.lint.per-file-ignores]
