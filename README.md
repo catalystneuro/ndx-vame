@@ -1,5 +1,8 @@
 # ndx-vame Extension for NWB
 
+[![PyPI](https://img.shields.io/pypi/v/ndx-vame?label=PyPI)](https://pypi.org/project/ndx-vame/)
+
+
 NWB extension for [VAME](https://github.com/EthoML/VAME).
 
 ## Installation
