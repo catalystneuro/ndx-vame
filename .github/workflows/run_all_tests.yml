@@ -1,8 +1,9 @@
 name: Run all tests
 on:
   push:
-  schedule:
-    - cron: '0 5 * * 0'  # once every Sunday at midnight ET
+    paths:
+      - 'src/**'
+      - '.github/workflows/run_all_tests.yml'
   workflow_dispatch:
 
 jobs:

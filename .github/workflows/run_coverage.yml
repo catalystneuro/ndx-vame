@@ -1,6 +1,9 @@
 name: Run code coverage
 on:
   push:
+    paths:
+      - 'src/**'
+      - '.github/workflows/run_coverage.yml'
   workflow_dispatch:
 
 jobs:
