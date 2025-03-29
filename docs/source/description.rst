@@ -17,7 +17,7 @@ VAME analyzes pose tracking data (like that from DeepLabCut, SLEAP, etc.) and:
 This extension allows these VAME outputs to be stored in a standardized way within NWB files, alongside the original pose estimation data.
 
 Installation
------------
+------------
 
 The extension can be installed via pip:
 
@@ -26,7 +26,7 @@ The extension can be installed via pip:
     pip install ndx-vame
 
 Dependencies
------------
+------------
 
 - pynwb (>=2.8.0)
 - hdmf (>=3.14.1)

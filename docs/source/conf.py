@@ -73,7 +73,16 @@ def run_doc_autogen(_):
         generate_docs()
 
 
+def register_custom_namespace(_):
+    """Register the ndx-pose namespace for documentation generation"""
+    try:
+        import ndx_pose
+    except ImportError:
+        print("Warning: Could not import ndx-pose.")
+
+
 def setup(app):
+    app.connect('builder-inited', register_custom_namespace)
     app.connect('builder-inited', run_doc_autogen)
     # overrides for wide tables in RTD theme
     try:

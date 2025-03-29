@@ -8,7 +8,7 @@ ndx-vame
 Version |release| |today|
 
 Data Structure Overview
-======================
+=======================
 
 This extension defines three main neurodata types:
 
@@ -19,7 +19,7 @@ This extension defines three main neurodata types:
 3. **VAMEGroup**: A container for VAME data that includes both MotifSeries and CommunitySeries, and links to the original PoseEstimation data used to generate the VAME analysis.
 
 Relationship Diagram
--------------------
+--------------------
 
 .. code-block:: text
 
@@ -32,7 +32,7 @@ Relationship Diagram
 The VAMEGroup contains both the MotifSeries and CommunitySeries, and links to the PoseEstimation data that was used as input to VAME. The CommunitySeries also links to the MotifSeries to establish the relationship between motifs and communities.
 
 Detailed Specification
-=====================
+======================
 
 .. .. contents::
 
