@@ -35,7 +35,7 @@ test = [
     "python-dateutil>=2.8.2",
 ]
 
-docs = ["hdmf-docutils==0.4.8", "Sphinx>=8.2.0", "sphinx-rtd-theme==3.0.2"]
+docs = ["hdmf-docutils==0.4.8", "sphinx-rtd-theme==3.0.2"]
 
 dev = [
     "black>=24.4.2",
