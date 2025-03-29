@@ -1,0 +1,853 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. ndx-vame &mdash; ndx-vame alpha documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/theme_overrides.css?v=0c24fe83" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=1f169f65"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Release Notes" href="release_notes.html" />
+    <link rel="prev" title="1. Overview" href="description.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ndx-vame
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="description.html">1. Overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extension Specification</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. ndx-vame</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-structure-overview">1.1. Data Structure Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#relationship-diagram">1.1.1. Relationship Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#detailed-specification">1.2. Detailed Specification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#format-overview">1.3. Format Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hdmf-type-namespace-doc">1.3.1. ndx-vame</a></li>
+<li><a class="reference internal" href="#type-hierarchy">1.3.2. Type Hierarchy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#type-specifications">1.4. Type Specifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ndx-vame-extensions-yaml">1.4.1. ndx-vame.extensions.yaml</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#motifseries">1.4.1.1. MotifSeries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#communityseries">1.4.1.2. CommunitySeries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vamegroup">1.4.1.3. VAMEGroup</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#schema-sources">1.5. Schema Sources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hdmf-type-namespace-src">1.5.1. ndx-vame</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ndx-vame-extensions-yaml-src">1.5.2. ndx-vame.extensions.yaml</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sec-motifseries-src">1.5.2.1. MotifSeries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sec-communityseries-src">1.5.2.2. CommunitySeries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sec-vamegroup-src">1.5.2.3. VAMEGroup</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">History &amp; Legal</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="release_notes.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html#legal">Legal</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ndx-vame</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">1. </span>ndx-vame</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/format.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ndx-vame">
+<span id="id1"></span><h1><span class="section-number">1. </span>ndx-vame<a class="headerlink" href="#ndx-vame" title="Link to this heading"></a></h1>
+<p>Version alpha Mar 29, 2025</p>
+<section id="data-structure-overview">
+<h2><span class="section-number">1.1. </span>Data Structure Overview<a class="headerlink" href="#data-structure-overview" title="Link to this heading"></a></h2>
+<p>This extension defines three main neurodata types:</p>
+<ol class="arabic simple">
+<li><p><strong>MotifSeries</strong>: Extends <code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> to store VAME motif data. Each column in the data represents a different motif, and each row represents a time point.</p></li>
+<li><p><strong>CommunitySeries</strong>: Extends <code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> to store VAME community data. Communities are groups of similar motifs. Each column in the data represents a different community, and each row represents a time point.</p></li>
+<li><p><strong>VAMEGroup</strong>: A container for VAME data that includes both MotifSeries and CommunitySeries, and links to the original PoseEstimation data used to generate the VAME analysis.</p></li>
+</ol>
+<section id="relationship-diagram">
+<h3><span class="section-number">1.1.1. </span>Relationship Diagram<a class="headerlink" href="#relationship-diagram" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>VAMEGroup
+├── motif_series (MotifSeries)
+├── community_series (CommunitySeries)
+│   └── motif_series (link to MotifSeries)
+└── pose_estimation (link to PoseEstimation)
+</pre></div>
+</div>
+<p>The VAMEGroup contains both the MotifSeries and CommunitySeries, and links to the PoseEstimation data that was used as input to VAME. The CommunitySeries also links to the MotifSeries to establish the relationship between motifs and communities.</p>
+</section>
+</section>
+<section id="detailed-specification">
+<h2><span class="section-number">1.2. </span>Detailed Specification<a class="headerlink" href="#detailed-specification" title="Link to this heading"></a></h2>
+</section>
+<section id="format-overview">
+<h2><span class="section-number">1.3. </span>Format Overview<a class="headerlink" href="#format-overview" title="Link to this heading"></a></h2>
+<section id="hdmf-type-namespace-doc">
+<span id="id2"></span><h3><span class="section-number">1.3.1. </span>ndx-vame<a class="headerlink" href="#hdmf-type-namespace-doc" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Description:</strong> NWB extension for VAME</p></li>
+<li><p><strong>Name:</strong> ndx-vame</p></li>
+<li><p><strong>Version:</strong> 0.1.0</p></li>
+<li><dl class="simple">
+<dt><strong>Authors:</strong></dt><dd><ul>
+<li><p>Luiz Tauffer</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Contacts:</strong></dt><dd><ul>
+<li><p><a class="reference external" href="mailto:luiz&#46;tauffer&#37;&#52;&#48;catalystneuro&#46;com">luiz<span>&#46;</span>tauffer<span>&#64;</span>catalystneuro<span>&#46;</span>com</a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Schema:</strong></dt><dd><ul>
+<li><p><strong>namespace:</strong> core</p></li>
+<li><p><strong>namespace:</strong> ndx-pose</p></li>
+<li><p><strong>neurodata_types:</strong> [‘PoseEstimation’]</p></li>
+<li><p><strong>source:</strong> ndx-vame.extensions.yaml</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="type-hierarchy">
+<span id="data-type-hierarchy"></span><h3><span class="section-number">1.3.2. </span>Type Hierarchy<a class="headerlink" href="#type-hierarchy" title="Link to this heading"></a></h3>
+<ul>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.9.0)"><span class="xref std std-ref">Container</span></a></p>
+<blockquote>
+<div><ul>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-csrmatrix" title="(in HDMF-common Specification vv1.9.0)"><span class="xref std std-ref">CSRMatrix</span></a></p></li>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictable" title="(in HDMF-common Specification vv1.9.0)"><span class="xref std std-ref">DynamicTable</span></a></p>
+<blockquote>
+<div><ul>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-aligneddynamictable" title="(in HDMF-common Specification vv1.9.0)"><span class="xref std std-ref">AlignedDynamicTable</span></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-intracellularrecordingstable" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">IntracellularRecordingsTable</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-experimentalconditionstable" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">ExperimentalConditionsTable</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-intracellularelectrodestable" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">IntracellularElectrodesTable</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-intracellularresponsestable" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">IntracellularResponsesTable</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-intracellularstimulitable" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">IntracellularStimuliTable</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-planesegmentation" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">PlaneSegmentation</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-repetitionstable" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">RepetitionsTable</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-sequentialrecordingstable" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">SequentialRecordingsTable</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-simultaneousrecordingstable" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">SimultaneousRecordingsTable</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-sweeptable" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">SweepTable</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeintervals" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeIntervals</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-units" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">Units</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBContainer</span></a></p>
+<blockquote>
+<div><ul>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-device" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">Device</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-electrodegroup" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">ElectrodeGroup</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-imagingplane" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">ImagingPlane</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-intracellularelectrode" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">IntracellularElectrode</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-labmetadata" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">LabMetaData</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p>
+<blockquote>
+<div><ul>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-behavioralepochs" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">BehavioralEpochs</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-behavioralevents" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">BehavioralEvents</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-behavioraltimeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">BehavioralTimeSeries</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-clusterwaveforms" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">ClusterWaveforms</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-clustering" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">Clustering</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-compassdirection" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">CompassDirection</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-correctedimagestack" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">CorrectedImageStack</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-dfoverf" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">DfOverF</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-eventdetection" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">EventDetection</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-eventwaveform" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">EventWaveform</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-eyetracking" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">EyeTracking</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-featureextraction" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">FeatureExtraction</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-filteredephys" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">FilteredEphys</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-fluorescence" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">Fluorescence</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-imagesegmentation" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">ImageSegmentation</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-images" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">Images</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-imagingretinotopy" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">ImagingRetinotopy</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-lfp" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">LFP</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-motioncorrection" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">MotionCorrection</span></a></p></li>
+<li><p><span class="xref std std-ref">PoseEstimation</span></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-position" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">Position</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-pupiltracking" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">PupilTracking</span></a></p></li>
+<li><p><span class="xref std std-ref">Skeleton</span></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p>
+<blockquote>
+<div><ul>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-abstractfeatureseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">AbstractFeatureSeries</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-annotationseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">AnnotationSeries</span></a></p></li>
+<li><p><a class="reference internal" href="#sec-communityseries"><span class="std std-ref">CommunitySeries</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-decompositionseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">DecompositionSeries</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-electricalseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">ElectricalSeries</span></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-spikeeventseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">SpikeEventSeries</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-imageseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">ImageSeries</span></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-imagemaskseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">ImageMaskSeries</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-onephotonseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">OnePhotonSeries</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-opticalseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">OpticalSeries</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-twophotonseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TwoPhotonSeries</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-indexseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">IndexSeries</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-intervalseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">IntervalSeries</span></a></p></li>
+<li><p><a class="reference internal" href="#sec-motifseries"><span class="std std-ref">MotifSeries</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-optogeneticseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">OptogeneticSeries</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-patchclampseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">PatchClampSeries</span></a></p>
+<blockquote>
+<div><ul>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-currentclampseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">CurrentClampSeries</span></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-izeroclampseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">IZeroClampSeries</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-currentclampstimulusseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">CurrentClampStimulusSeries</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-voltageclampseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">VoltageClampSeries</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-voltageclampstimulusseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">VoltageClampStimulusSeries</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-roiresponseseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">RoiResponseSeries</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-spatialseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">SpatialSeries</span></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="xref std std-ref">PoseEstimationSeries</span></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference internal" href="#sec-vamegroup"><span class="std std-ref">VAMEGroup</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbfile" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBFile</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-opticalchannel" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">OpticalChannel</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-optogeneticstimulussite" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">OptogeneticStimulusSite</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-processingmodule" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">ProcessingModule</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-subject" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">Subject</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-simplemulticontainer" title="(in HDMF-common Specification vv1.9.0)"><span class="xref std std-ref">SimpleMultiContainer</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-data" title="(in HDMF-common Specification vv1.9.0)"><span class="xref std std-ref">Data</span></a></p>
+<blockquote>
+<div><ul>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-elementidentifiers" title="(in HDMF-common Specification vv1.9.0)"><span class="xref std std-ref">ElementIdentifiers</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdata" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBData</span></a></p>
+<blockquote>
+<div><ul>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-image" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">Image</span></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-grayscaleimage" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">GrayscaleImage</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-rgbaimage" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">RGBAImage</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-rgbimage" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">RGBImage</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-imagereferences" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">ImageReferences</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-scratchdata" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">ScratchData</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-vectordata" title="(in HDMF-common Specification vv1.9.0)"><span class="xref std std-ref">VectorData</span></a></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-dynamictableregion" title="(in HDMF-common Specification vv1.9.0)"><span class="xref std std-ref">DynamicTableRegion</span></a></p></li>
+<li><p><a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseriesreferencevectordata" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeriesReferenceVectorData</span></a></p></li>
+<li><p><a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-vectorindex" title="(in HDMF-common Specification vv1.9.0)"><span class="xref std std-ref">VectorIndex</span></a></p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+</section>
+<section id="type-specifications">
+<h2><span class="section-number">1.4. </span>Type Specifications<a class="headerlink" href="#type-specifications" title="Link to this heading"></a></h2>
+<section id="ndx-vame-extensions-yaml">
+<span id="id3"></span><h3><span class="section-number">1.4.1. </span>ndx-vame.extensions.yaml<a class="headerlink" href="#ndx-vame-extensions-yaml" title="Link to this heading"></a></h3>
+<section id="motifseries">
+<span id="sec-motifseries"></span><h4><span class="section-number">1.4.1.1. </span>MotifSeries<a class="headerlink" href="#motifseries" title="Link to this heading"></a></h4>
+<p><strong>Overview:</strong> An extension of TimeSeries to include relevant information about the VAME motif data.</p>
+<p><code class="docutils literal notranslate"><span class="pre">MotifSeries</span></code> extends <code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> and includes all elements of <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a> with the following additions or changes.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+<li><p><strong>Primitive Type:</strong> Group</p></li>
+<li><p><strong>Inherits from:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a>, <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBDataInterface</span></a>, <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBContainer</span></a>, <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.9.0)"><span class="xref std std-ref">Container</span></a></p></li>
+<li><p><strong>Source filename:</strong> ndx-vame.extensions.yaml</p></li>
+<li><p><strong>Source Specification:</strong> see <a class="reference internal" href="#sec-motifseries-src"><span class="std std-numref">Section 1.5.2.1</span></a></p></li>
+</ul>
+<span id="table-motifseries-data"></span><table class="longtable docutils align-default" id="id9">
+<caption><span class="caption-number">Table 1.1 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;MotifSeries&gt;</span><a class="headerlink" href="#id9" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;MotifSeries&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;MotifSeries&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-motifseries"><span class="std std-ref">MotifSeries</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.unit</p></td>
+<td><p>Attribute</p></td>
+<td><p>The base unit of measurement. Non-applicable for this data type.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Required:</strong> False</p></li>
+<li><p><strong>Default Value:</strong> n/a</p></li>
+<li><p><strong>Name:</strong> unit</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="communityseries">
+<span id="sec-communityseries"></span><h4><span class="section-number">1.4.1.2. </span>CommunitySeries<a class="headerlink" href="#communityseries" title="Link to this heading"></a></h4>
+<p><strong>Overview:</strong> An extension of TimeSeries to include relevant information about the VAME community data.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CommunitySeries</span></code> extends <code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> and includes all elements of <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a> with the following additions or changes.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+<li><p><strong>Primitive Type:</strong> Group</p></li>
+<li><p><strong>Inherits from:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a>, <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBDataInterface</span></a>, <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBContainer</span></a>, <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.9.0)"><span class="xref std std-ref">Container</span></a></p></li>
+<li><p><strong>Source filename:</strong> ndx-vame.extensions.yaml</p></li>
+<li><p><strong>Source Specification:</strong> see <a class="reference internal" href="#sec-communityseries-src"><span class="std std-numref">Section 1.5.2.2</span></a></p></li>
+</ul>
+<figure class="align-default">
+<img alt="CommunitySeries" src="_images/CommunitySeries.png" />
+</figure>
+<span id="table-communityseries-data"></span><table class="longtable docutils align-default" id="id10">
+<caption><span class="caption-number">Table 1.2 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;CommunitySeries&gt;</span><a class="headerlink" href="#id10" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;CommunitySeries&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;CommunitySeries&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-communityseries"><span class="std std-ref">CommunitySeries</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.unit</p></td>
+<td><p>Attribute</p></td>
+<td><p>The base unit of measurement. Non-applicable for this data type.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Required:</strong> False</p></li>
+<li><p><strong>Default Value:</strong> n/a</p></li>
+<li><p><strong>Name:</strong> unit</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>.motif_series</p></td>
+<td><p>Link</p></td>
+<td><p>The motif series associated with this community series.</p>
+<ul class="simple">
+<li><p><strong>Target Type</strong> <a class="reference internal" href="#sec-motifseries"><span class="std std-ref">MotifSeries</span></a></p></li>
+<li><p><strong>Name:</strong> motif_series</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<span id="table-communityseries-groups"></span><table class="longtable docutils align-default" id="id11">
+<caption><span class="caption-number">Table 1.3 </span><span class="caption-text">Groups contained in &lt;CommunitySeries&gt;</span><a class="headerlink" href="#id11" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;CommunitySeries&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;CommunitySeries&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-communityseries"><span class="std std-ref">CommunitySeries</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.motif_series</p></td>
+<td><p>Link</p></td>
+<td><p>The motif series associated with this community series.</p>
+<ul class="simple">
+<li><p><strong>Target Type</strong> <a class="reference internal" href="#sec-motifseries"><span class="std std-ref">MotifSeries</span></a></p></li>
+<li><p><strong>Name:</strong> motif_series</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="vamegroup">
+<span id="sec-vamegroup"></span><h4><span class="section-number">1.4.1.3. </span>VAMEGroup<a class="headerlink" href="#vamegroup" title="Link to this heading"></a></h4>
+<p><strong>Overview:</strong> A group to hold VAME data.</p>
+<p><code class="docutils literal notranslate"><span class="pre">VAMEGroup</span></code> extends <code class="docutils literal notranslate"><span class="pre">NWBDataInterface</span></code> and includes all elements of <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBDataInterface</span></a> with the following additions or changes.</p>
+<ul class="simple">
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p></li>
+<li><p><strong>Primitive Type:</strong> Group</p></li>
+<li><p><strong>Inherits from:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBDataInterface</span></a>, <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbcontainer" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBContainer</span></a>, <a class="reference external" href="https://hdmf-common-schema.readthedocs.io/en/latest/format.html#sec-container" title="(in HDMF-common Specification vv1.9.0)"><span class="xref std std-ref">Container</span></a></p></li>
+<li><p><strong>Source filename:</strong> ndx-vame.extensions.yaml</p></li>
+<li><p><strong>Source Specification:</strong> see <a class="reference internal" href="#sec-vamegroup-src"><span class="std std-numref">Section 1.5.2.3</span></a></p></li>
+</ul>
+<figure class="align-default">
+<img alt="VAMEGroup" src="_images/VAMEGroup.png" />
+</figure>
+<span id="table-vamegroup-data"></span><table class="longtable docutils align-default" id="id12">
+<caption><span class="caption-number">Table 1.4 </span><span class="caption-text">Datasets, Links, and Attributes contained in &lt;VAMEGroup&gt;</span><a class="headerlink" href="#id12" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;VAMEGroup&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;VAMEGroup&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-vamegroup"><span class="std std-ref">VAMEGroup</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.vame_settings</p></td>
+<td><p>Attribute</p></td>
+<td><p>The VAME settings.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Name:</strong> vame_settings</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>.pose_estimation</p></td>
+<td><p>Link</p></td>
+<td><p>The pose estimation data used to generate the VAME data.</p>
+<ul class="simple">
+<li><p><strong>Target Type</strong> <span class="xref std std-ref">PoseEstimation</span></p></li>
+<li><p><strong>Name:</strong> pose_estimation</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<span id="table-vamegroup-groups"></span><table class="longtable docutils align-default" id="id13">
+<caption><span class="caption-number">Table 1.5 </span><span class="caption-text">Groups contained in &lt;VAMEGroup&gt;</span><a class="headerlink" href="#id13" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;VAMEGroup&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;VAMEGroup&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-vamegroup"><span class="std std-ref">VAMEGroup</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.pose_estimation</p></td>
+<td><p>Link</p></td>
+<td><p>The pose estimation data used to generate the VAME data.</p>
+<ul class="simple">
+<li><p><strong>Target Type</strong> <span class="xref std std-ref">PoseEstimation</span></p></li>
+<li><p><strong>Name:</strong> pose_estimation</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>.&lt;MotifSeries&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>An extension of TimeSeries to include relevant information about the VAME motif data.</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-motifseries"><span class="std std-ref">MotifSeries</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.&lt;CommunitySeries&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>An extension of TimeSeries to include relevant information about the VAME community data.</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-communityseries"><span class="std std-ref">CommunitySeries</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>..motif_series</p></td>
+<td><p>Link</p></td>
+<td><p>The motif series associated with this community series.</p>
+<ul class="simple">
+<li><p><strong>Target Type</strong> <a class="reference internal" href="#sec-motifseries"><span class="std std-ref">MotifSeries</span></a></p></li>
+<li><p><strong>Name:</strong> motif_series</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<section id="groups-motifseries">
+<h5><span class="section-number">1.4.1.3.1. </span>Groups: &lt;MotifSeries&gt;<a class="headerlink" href="#groups-motifseries" title="Link to this heading"></a></h5>
+<p>An extension of TimeSeries to include relevant information about the VAME motif data.</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-motifseries"><span class="std std-ref">MotifSeries</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+</ul>
+<table class="longtable docutils align-default" id="id14">
+<caption><span class="caption-number">Table 1.6 </span><span class="caption-text">Datasets, Links, and Attributes contained in <code class="docutils literal notranslate"><span class="pre">&lt;MotifSeries&gt;</span></code></span><a class="headerlink" href="#id14" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;MotifSeries&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;MotifSeries&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-motifseries"><span class="std std-ref">MotifSeries</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.unit</p></td>
+<td><p>Attribute</p></td>
+<td><p>The base unit of measurement. Non-applicable for this data type.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Required:</strong> False</p></li>
+<li><p><strong>Default Value:</strong> n/a</p></li>
+<li><p><strong>Name:</strong> unit</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="groups-communityseries">
+<h5><span class="section-number">1.4.1.3.2. </span>Groups: &lt;CommunitySeries&gt;<a class="headerlink" href="#groups-communityseries" title="Link to this heading"></a></h5>
+<p>An extension of TimeSeries to include relevant information about the VAME community data.</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-communityseries"><span class="std std-ref">CommunitySeries</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+</ul>
+<table class="longtable docutils align-default" id="id15">
+<caption><span class="caption-number">Table 1.7 </span><span class="caption-text">Datasets, Links, and Attributes contained in <code class="docutils literal notranslate"><span class="pre">&lt;CommunitySeries&gt;</span></code></span><a class="headerlink" href="#id15" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;CommunitySeries&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;CommunitySeries&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-communityseries"><span class="std std-ref">CommunitySeries</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.unit</p></td>
+<td><p>Attribute</p></td>
+<td><p>The base unit of measurement. Non-applicable for this data type.</p>
+<ul class="simple">
+<li><p><strong>Data Type:</strong> text</p></li>
+<li><p><strong>Required:</strong> False</p></li>
+<li><p><strong>Default Value:</strong> n/a</p></li>
+<li><p><strong>Name:</strong> unit</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>.motif_series</p></td>
+<td><p>Link</p></td>
+<td><p>The motif series associated with this community series.</p>
+<ul class="simple">
+<li><p><strong>Target Type</strong> <a class="reference internal" href="#sec-motifseries"><span class="std std-ref">MotifSeries</span></a></p></li>
+<li><p><strong>Name:</strong> motif_series</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="longtable docutils align-default" id="id16">
+<caption><span class="caption-number">Table 1.8 </span><span class="caption-text">Groups contained in &lt;&lt;CommunitySeries&gt;&gt;</span><a class="headerlink" href="#id16" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&lt;CommunitySeries&gt;</p></td>
+<td><p>Group</p></td>
+<td><p>Top level Group for &lt;CommunitySeries&gt;</p>
+<ul class="simple">
+<li><p><strong>Neurodata Type:</strong> <a class="reference internal" href="#sec-communityseries"><span class="std std-ref">CommunitySeries</span></a></p></li>
+<li><p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>.motif_series</p></td>
+<td><p>Link</p></td>
+<td><p>The motif series associated with this community series.</p>
+<ul class="simple">
+<li><p><strong>Target Type</strong> <a class="reference internal" href="#sec-motifseries"><span class="std std-ref">MotifSeries</span></a></p></li>
+<li><p><strong>Name:</strong> motif_series</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
+<section id="schema-sources">
+<span id="hdmf-type-specification-sources"></span><h2><span class="section-number">1.5. </span>Schema Sources<a class="headerlink" href="#schema-sources" title="Link to this heading"></a></h2>
+<p><strong>Source Specification:</strong> see <a class="reference internal" href="#hdmf-type-namespace-src"><span class="std std-numref">Section 1.5.1</span></a></p>
+<section id="hdmf-type-namespace-src">
+<span id="id4"></span><h3><span class="section-number">1.5.1. </span>ndx-vame<a class="headerlink" href="#hdmf-type-namespace-src" title="Link to this heading"></a></h3>
+<p><strong>Description:</strong> see <a class="reference internal" href="#hdmf-type-namespace-doc"><span class="std std-numref">Section 1.3.1</span></a></p>
+<p><strong>YAML Specification:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">author</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Luiz Tauffer</span>
+<span class="linenos"> 3</span><span class="nt">contact</span><span class="p">:</span>
+<span class="linenos"> 4</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">luiz.tauffer@catalystneuro.com</span>
+<span class="linenos"> 5</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NWB extension for VAME</span>
+<span class="linenos"> 6</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ndx-vame</span>
+<span class="linenos"> 7</span><span class="nt">schema</span><span class="p">:</span>
+<span class="linenos"> 8</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">core</span>
+<span class="linenos"> 9</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ndx-pose</span>
+<span class="linenos">10</span><span class="w">  </span><span class="nt">neurodata_types</span><span class="p">:</span>
+<span class="linenos">11</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PoseEstimation</span>
+<span class="linenos">12</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ndx-vame.extensions.yaml</span>
+<span class="linenos">13</span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1.0</span>
+</pre></div>
+</div>
+</section>
+<section id="ndx-vame-extensions-yaml-src">
+<span id="id5"></span><h3><span class="section-number">1.5.2. </span>ndx-vame.extensions.yaml<a class="headerlink" href="#ndx-vame-extensions-yaml-src" title="Link to this heading"></a></h3>
+<section id="sec-motifseries-src">
+<span id="id6"></span><h4><span class="section-number">1.5.2.1. </span>MotifSeries<a class="headerlink" href="#sec-motifseries-src" title="Link to this heading"></a></h4>
+<p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p>
+<p><strong>Description:</strong> see <a class="reference internal" href="#sec-motifseries"><span class="std std-numref">Section 1.4.1.1</span></a></p>
+<p><strong>YAML Specification:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">attributes</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">default_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n/a</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The base unit of measurement. Non-applicable for this data type.</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 5</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unit</span>
+<span class="linenos"> 6</span><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 7</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">An extension of TimeSeries to include relevant information about the VAME motif</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">data.</span>
+<span class="linenos"> 9</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MotifSeries</span>
+<span class="linenos">10</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TimeSeries</span>
+</pre></div>
+</div>
+</section>
+<section id="sec-communityseries-src">
+<span id="id7"></span><h4><span class="section-number">1.5.2.2. </span>CommunitySeries<a class="headerlink" href="#sec-communityseries-src" title="Link to this heading"></a></h4>
+<p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-timeseries" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">TimeSeries</span></a></p>
+<p><strong>Description:</strong> see <a class="reference internal" href="#sec-communityseries"><span class="std std-numref">Section 1.4.1.2</span></a></p>
+<p><strong>YAML Specification:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">attributes</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">default_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n/a</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The base unit of measurement. Non-applicable for this data type.</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 5</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unit</span>
+<span class="linenos"> 6</span><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 7</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">An extension of TimeSeries to include relevant information about the VAME community</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">data.</span>
+<span class="linenos"> 9</span><span class="nt">links</span><span class="p">:</span>
+<span class="linenos">10</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The motif series associated with this community series.</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">motif_series</span>
+<span class="linenos">12</span><span class="w">  </span><span class="nt">quantity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;?&#39;</span>
+<span class="linenos">13</span><span class="w">  </span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MotifSeries</span>
+<span class="linenos">14</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommunitySeries</span>
+<span class="linenos">15</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TimeSeries</span>
+</pre></div>
+</div>
+</section>
+<section id="sec-vamegroup-src">
+<span id="id8"></span><h4><span class="section-number">1.5.2.3. </span>VAMEGroup<a class="headerlink" href="#sec-vamegroup-src" title="Link to this heading"></a></h4>
+<p><strong>Extends:</strong> <a class="reference external" href="https://nwb-schema.readthedocs.io/en/latest/format.html#sec-nwbdatainterface" title="(in NWB Format Specification v2.9.0)"><span class="xref std std-ref">NWBDataInterface</span></a></p>
+<p><strong>Description:</strong> see <a class="reference internal" href="#sec-vamegroup"><span class="std std-numref">Section 1.4.1.3</span></a></p>
+<p><strong>YAML Specification:</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">attributes</span><span class="p">:</span>
+<span class="linenos"> 2</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The VAME settings.</span>
+<span class="linenos"> 3</span><span class="w">  </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vame_settings</span>
+<span class="linenos"> 5</span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A group to hold VAME data.</span>
+<span class="linenos"> 6</span><span class="nt">groups</span><span class="p">:</span>
+<span class="linenos"> 7</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">default_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n/a</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The base unit of measurement. Non-applicable for this data type.</span>
+<span class="linenos">10</span><span class="w">    </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos">11</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unit</span>
+<span class="linenos">12</span><span class="w">    </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos">13</span><span class="w">  </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">An extension of TimeSeries to include relevant information about the VAME motif</span>
+<span class="linenos">14</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">data.</span>
+<span class="linenos">15</span><span class="w">  </span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MotifSeries</span>
+<span class="linenos">16</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TimeSeries</span>
+<span class="linenos">17</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="linenos">18</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">default_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n/a</span>
+<span class="linenos">19</span><span class="w">    </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The base unit of measurement. Non-applicable for this data type.</span>
+<span class="linenos">20</span><span class="w">    </span><span class="nt">dtype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">text</span>
+<span class="linenos">21</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unit</span>
+<span class="linenos">22</span><span class="w">    </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos">23</span><span class="w">  </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">An extension of TimeSeries to include relevant information about the VAME community</span>
+<span class="linenos">24</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">data.</span>
+<span class="linenos">25</span><span class="w">  </span><span class="nt">links</span><span class="p">:</span>
+<span class="linenos">26</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The motif series associated with this community series.</span>
+<span class="linenos">27</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">motif_series</span>
+<span class="linenos">28</span><span class="w">    </span><span class="nt">quantity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;?&#39;</span>
+<span class="linenos">29</span><span class="w">    </span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MotifSeries</span>
+<span class="linenos">30</span><span class="w">  </span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommunitySeries</span>
+<span class="linenos">31</span><span class="w">  </span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TimeSeries</span>
+<span class="linenos">32</span><span class="nt">links</span><span class="p">:</span>
+<span class="linenos">33</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">doc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The pose estimation data used to generate the VAME data.</span>
+<span class="linenos">34</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pose_estimation</span>
+<span class="linenos">35</span><span class="w">  </span><span class="nt">quantity</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;?&#39;</span>
+<span class="linenos">36</span><span class="w">  </span><span class="nt">target_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PoseEstimation</span>
+<span class="linenos">37</span><span class="nt">neurodata_type_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VAMEGroup</span>
+<span class="linenos">38</span><span class="nt">neurodata_type_inc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NWBDataInterface</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="description.html" class="btn btn-neutral float-left" title="1. Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="release_notes.html" class="btn btn-neutral float-right" title="Release Notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Luiz Tauffer.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
