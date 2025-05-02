@@ -145,6 +145,7 @@ class TestVAME:
         vame_config = json.dumps(config)
         vame_project = VAMEProject(
             name="VAMEProject",
+            latent_space_series=latent_space_series,
             motif_series=motif_series,
             community_series=community_series,
             vame_config=vame_config,

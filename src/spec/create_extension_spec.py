@@ -36,6 +36,7 @@ def main():
         neurodata_type_def="LatentSpaceSeries",
         neurodata_type_inc="TimeSeries",
         doc="An extension of TimeSeries to include VAME latent space data.",
+        quantity="?",
         attributes=[
             NWBAttributeSpec(
                 name="unit",
@@ -51,6 +52,7 @@ def main():
         neurodata_type_def="MotifSeries",
         neurodata_type_inc="TimeSeries",
         doc="An extension of TimeSeries to include VAME motif data.",
+        quantity="?",
         attributes=[
             NWBAttributeSpec(
                 name="unit",
@@ -81,6 +83,7 @@ def main():
         neurodata_type_def="CommunitySeries",
         neurodata_type_inc="TimeSeries",
         doc="An extension of TimeSeries to include VAME community data.",
+        quantity="?",
         attributes=[
             NWBAttributeSpec(
                 name="unit",
