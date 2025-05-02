@@ -12,9 +12,9 @@ from pynwb.spec import (
 
 def main():
     ns_builder = NWBNamespaceBuilder(
-        name="""ndx-vame""",
-        version="""0.1.0""",
-        doc="""NWB extension for VAME""",
+        name="ndx-vame",
+        version="0.2.0",
+        doc="NWB extension for VAME",
         author=[
             "Luiz Tauffer",
         ],
@@ -32,10 +32,10 @@ def main():
     # Define your new data types
     # see https://pynwb.readthedocs.io/en/stable/tutorials/general/extensions.html
     # for more information
-    motif_series = NWBGroupSpec(
-        neurodata_type_def="MotifSeries",
+    latent_space_series = NWBGroupSpec(
+        neurodata_type_def="LatentSpaceSeries",
         neurodata_type_inc="TimeSeries",
-        doc="An extension of TimeSeries to include relevant information about the VAME motif data.",
+        doc="An extension of TimeSeries to include VAME latent space data.",
         attributes=[
             NWBAttributeSpec(
                 name="unit",
@@ -46,14 +46,52 @@ def main():
             ),
         ],
     )
-    community_series = NWBGroupSpec(
-        neurodata_type_def="CommunitySeries",
+
+    motif_series = NWBGroupSpec(
+        neurodata_type_def="MotifSeries",
         neurodata_type_inc="TimeSeries",
-        doc="An extension of TimeSeries to include relevant information about the VAME community data.",
+        doc="An extension of TimeSeries to include VAME motif data.",
         attributes=[
             NWBAttributeSpec(
                 name="unit",
                 doc="The base unit of measurement. Non-applicable for this data type.",
+                dtype="text",
+                required=False,
+                default_value="n/a",
+            ),
+            NWBAttributeSpec(
+                name="algorithm",
+                doc="The algorithm used for motif detection.",
+                dtype="text",
+                required=False,
+                default_value="n/a",
+            ),
+        ],
+        links=[
+            NWBLinkSpec(
+                name="latent_space_series",
+                doc="The latent space series associated with this motif series.",
+                target_type="LatentSpaceSeries",
+                quantity="?",
+            ),
+        ],
+    )
+
+    community_series = NWBGroupSpec(
+        neurodata_type_def="CommunitySeries",
+        neurodata_type_inc="TimeSeries",
+        doc="An extension of TimeSeries to include VAME community data.",
+        attributes=[
+            NWBAttributeSpec(
+                name="unit",
+                doc="The base unit of measurement. Non-applicable for this data type.",
+                dtype="text",
+                required=False,
+                default_value="n/a",
+            ),
+            NWBAttributeSpec(
+                name="algorithm",
+                doc="The algorithm used for community clustering.",
                 dtype="text",
                 required=False,
                 default_value="n/a",
@@ -69,19 +107,20 @@ def main():
         ],
     )
 
-    vame_group = NWBGroupSpec(
-        neurodata_type_def="VAMEGroup",
+    vame_project = NWBGroupSpec(
+        neurodata_type_def="VAMEProject",
         neurodata_type_inc="NWBDataInterface",
-        doc="A group to hold VAME data.",
+        doc="A group to hold VAME project data.",
         attributes=[
             NWBAttributeSpec(
-                name="vame_settings",
-                doc="The VAME settings.",
+                name="vame_config",
+                doc="The VAME config, as a stringfied JSON.",
                 dtype="text",
                 required=True,
             ),
         ],
         groups=[
+            latent_space_series,
             motif_series,
             community_series,
         ],
@@ -97,9 +136,10 @@ def main():
 
     # Add all of your new data types to this list
     new_data_types = [
+        latent_space_series,
         motif_series,
         community_series,
-        vame_group,
+        vame_project,
     ]
 
     # export the spec to yaml files in the spec folder

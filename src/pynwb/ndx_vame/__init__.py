@@ -21,15 +21,17 @@ load_namespaces(str(__spec_path))
 # Define your classes here to make them accessible at the package level.
 # Either have PyNWB generate a class from the spec using `get_class` as shown
 # below or write a custom class and register it using the class decorator
+LatentSpaceSeries = get_class("LatentSpaceSeries", "ndx-vame")
 MotifSeries = get_class("MotifSeries", "ndx-vame")
 CommunitySeries = get_class("CommunitySeries", "ndx-vame")
-VAMEGroup = get_class("VAMEGroup", "ndx-vame")
+VAMEProject = get_class("VAMEProject", "ndx-vame")
 
 # Add all classes to __all__ to make them accessible at the package level
 __all__ = [
+    "LatentSpaceSeries",
     "MotifSeries",
     "CommunitySeries",
-    "VAMEGroup",
+    "VAMEProject",
 ]
 
 # Remove these functions/modules from the package
