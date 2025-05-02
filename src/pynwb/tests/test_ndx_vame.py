@@ -1,3 +1,4 @@
+import json
 import datetime
 import numpy as np
 import pytest
@@ -7,7 +8,7 @@ import os
 from pynwb import NWBFile, NWBHDF5IO
 from pynwb.file import Subject
 from ndx_pose import PoseEstimationSeries, PoseEstimation
-from ndx_vame import VAMEGroup, MotifSeries, CommunitySeries
+from ndx_vame import VAMEProject, MotifSeries, CommunitySeries, LatentSpaceSeries
 
 
 @pytest.fixture
@@ -105,30 +106,53 @@ class TestVAME:
         behavior_pm.add(pose_estimation)
 
         # Create VAME data
-        motif_data = np.random.rand(100, 15)
+        # Latent space series (n_samples, n_dims)
+        n_samples = 100
+        rate = 10.0
+        latent_space_data = np.random.rand(n_samples, 15)
+        latent_space_series = LatentSpaceSeries(
+            name="LatentSpaceSeries",
+            data=latent_space_data,
+            rate=rate,
+        )
+
+        # Motif series (n_samples,)
+        motif_data = np.random.rand(n_samples)
         motif_series = MotifSeries(
             name="MotifSeries",
             data=motif_data,
-            rate=10.0,
+            rate=rate,
+            algorithm="hmm",
+            latent_space_series=latent_space_series,
         )
 
-        community_data = np.random.rand(100, 3)
+        # Community series (n_samples,)
+        community_data = np.random.rand(n_samples)
         community_series = CommunitySeries(
             name="CommunitySeries",
             data=community_data,
-            rate=10.0,
+            rate=rate,
+            algorithm="hierarchical_clustering",
             motif_series=motif_series,
         )
 
-        vame_group = VAMEGroup(
-            name="VAMEGroup",
+        # Create VAMEProject
+        config = {
+            "vame_version": "0.10.0",
+            "project_name": "my_vame_project",
+            "creation_datetime": "2025-04-30T15:48:58+00:00",
+        }
+        vame_config = json.dumps(config)
+        vame_project = VAMEProject(
+            name="VAMEProject",
+            latent_space_series=latent_space_series,
             motif_series=motif_series,
             community_series=community_series,
-            vame_settings="dict containing config",
+            vame_config=vame_config,
             pose_estimation=pose_estimation,
         )
 
-        behavior_pm.add(vame_group)
+        behavior_pm.add(vame_project)
 
         temp_file = os.path.join(tempfile.gettempdir(), "test_vame.nwb")
         try:
@@ -142,22 +166,22 @@ class TestVAME:
 
                 # Verify the data was read correctly
                 assert "behavior" in nwbfile.processing
-                assert "VAMEGroup" in nwbfile.processing["behavior"].data_interfaces
+                assert "VAMEProject" in nwbfile.processing["behavior"].data_interfaces
 
-                read_vame_group = nwbfile.processing["behavior"].data_interfaces["VAMEGroup"]
-                assert read_vame_group.name == "VAMEGroup"
+                read_vame_project = nwbfile.processing["behavior"].data_interfaces["VAMEProject"]
+                assert read_vame_project.name == "VAMEProject"
 
-                read_motif_series = read_vame_group.motif_series
+                read_motif_series = read_vame_project.motif_series
                 assert read_motif_series.name == "MotifSeries"
                 assert np.array_equal(read_motif_series.data[:], motif_data)
                 assert read_motif_series.rate == 10.0
 
-                read_community_series = read_vame_group.community_series
+                read_community_series = read_vame_project.community_series
                 assert read_community_series.name == "CommunitySeries"
                 assert np.array_equal(read_community_series.data[:], community_data)
                 assert read_community_series.rate == 10.0
 
-                assert read_vame_group.vame_settings == "dict containing config"
+                assert read_vame_project.vame_config == vame_config
         finally:
             # Clean up the temporary file
             if os.path.exists(temp_file):
