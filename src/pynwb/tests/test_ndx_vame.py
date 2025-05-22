@@ -109,7 +109,7 @@ class TestVAME:
         # Latent space series (n_samples, n_dims)
         n_samples = 100
         rate = 10.0
-        latent_space_data = np.random.rand(n_samples, 15)
+        latent_space_data = np.random.rand(n_samples, 30)
         latent_space_series = LatentSpaceSeries(
             name="LatentSpaceSeries",
             data=latent_space_data,
@@ -117,7 +117,7 @@ class TestVAME:
         )
 
         # Motif series (n_samples,)
-        motif_data = np.random.rand(n_samples)
+        motif_data = np.random.randint(0, 15, size=n_samples)
         motif_series = MotifSeries(
             name="MotifSeries",
             data=motif_data,
@@ -127,7 +127,7 @@ class TestVAME:
         )
 
         # Community series (n_samples,)
-        community_data = np.random.rand(n_samples)
+        community_data = np.random.randint(0, 3, size=n_samples)
         community_series = CommunitySeries(
             name="CommunitySeries",
             data=community_data,
