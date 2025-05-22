@@ -3,6 +3,12 @@ groups:
   neurodata_type_inc: TimeSeries
   doc: An extension of TimeSeries to include VAME latent space data.
   quantity: '?'
+  attributes:
+  - name: unit
+    dtype: text
+    default_value: n/a
+    doc: No physical unit applies.
+    required: false
   datasets:
   - name: data
     dtype: float32
@@ -10,17 +16,16 @@ groups:
     - null
     - null
     doc: Latent-space vectors over time.
-    attributes:
-    - name: unit
-      dtype: text
-      default_value: n/a
-      doc: No physical unit applies.
-      required: false
 - neurodata_type_def: MotifSeries
   neurodata_type_inc: TimeSeries
   doc: An extension of TimeSeries to include VAME motif data.
   quantity: '?'
   attributes:
+  - name: unit
+    dtype: text
+    default_value: n/a
+    doc: No physical unit applies.
+    required: false
   - name: algorithm
     dtype: text
     default_value: n/a
@@ -31,14 +36,7 @@ groups:
     dtype: int32
     shape:
     - null
-    - null
     doc: Motif IDs over time.
-    attributes:
-    - name: unit
-      dtype: text
-      default_value: n/a
-      doc: No physical unit applies.
-      required: false
   links:
   - name: latent_space_series
     target_type: LatentSpaceSeries
@@ -49,6 +47,11 @@ groups:
   doc: An extension of TimeSeries to include VAME community data.
   quantity: '?'
   attributes:
+  - name: unit
+    dtype: text
+    default_value: n/a
+    doc: No physical unit applies.
+    required: false
   - name: algorithm
     dtype: text
     default_value: n/a
@@ -59,14 +62,7 @@ groups:
     dtype: int32
     shape:
     - null
-    - null
     doc: Community IDs over time.
-    attributes:
-    - name: unit
-      dtype: text
-      default_value: n/a
-      doc: No physical unit applies.
-      required: false
   links:
   - name: motif_series
     target_type: MotifSeries
@@ -84,6 +80,12 @@ groups:
     neurodata_type_inc: TimeSeries
     doc: An extension of TimeSeries to include VAME latent space data.
     quantity: '?'
+    attributes:
+    - name: unit
+      dtype: text
+      default_value: n/a
+      doc: No physical unit applies.
+      required: false
     datasets:
     - name: data
       dtype: float32
@@ -91,17 +93,16 @@ groups:
       - null
       - null
       doc: Latent-space vectors over time.
-      attributes:
-      - name: unit
-        dtype: text
-        default_value: n/a
-        doc: No physical unit applies.
-        required: false
   - neurodata_type_def: MotifSeries
     neurodata_type_inc: TimeSeries
     doc: An extension of TimeSeries to include VAME motif data.
     quantity: '?'
     attributes:
+    - name: unit
+      dtype: text
+      default_value: n/a
+      doc: No physical unit applies.
+      required: false
     - name: algorithm
       dtype: text
       default_value: n/a
@@ -112,14 +113,7 @@ groups:
       dtype: int32
       shape:
       - null
-      - null
       doc: Motif IDs over time.
-      attributes:
-      - name: unit
-        dtype: text
-        default_value: n/a
-        doc: No physical unit applies.
-        required: false
     links:
     - name: latent_space_series
       target_type: LatentSpaceSeries
@@ -130,6 +124,11 @@ groups:
     doc: An extension of TimeSeries to include VAME community data.
     quantity: '?'
     attributes:
+    - name: unit
+      dtype: text
+      default_value: n/a
+      doc: No physical unit applies.
+      required: false
     - name: algorithm
       dtype: text
       default_value: n/a
@@ -140,14 +139,7 @@ groups:
       dtype: int32
       shape:
       - null
-      - null
       doc: Community IDs over time.
-      attributes:
-      - name: unit
-        dtype: text
-        default_value: n/a
-        doc: No physical unit applies.
-        required: false
     links:
     - name: motif_series
       target_type: MotifSeries

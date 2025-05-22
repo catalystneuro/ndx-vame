@@ -11,23 +11,32 @@ from pynwb.spec import (
 )
 
 
-def make_dataset(dtype: str, doc: str) -> NWBDatasetSpec:
+def make_dataset(dtype: str, doc: str, shape: tuple) -> NWBDatasetSpec:
     """Return a 2D NWBDatasetSpec with optional unit."""
     return NWBDatasetSpec(
         name="data",
         dtype=dtype,
-        shape=(None, None),
+        shape=shape,
         doc=doc,
-        attributes=[
-            NWBAttributeSpec(
-                name="unit",
-                doc="No physical unit applies.",
-                dtype="text",
-                required=False,
-                default_value="n/a",
-            ),
-        ],
+        # attributes=[
+        #     NWBAttributeSpec(
+        #         name="unit",
+        #         doc="No physical unit applies.",
+        #         dtype="text",
+        #         required=True,
+        #         value="n/a",
+        #     ),
+        # ],
     )
+
+
+UNIT_ATTR = NWBAttributeSpec(
+    name="unit",
+    doc="No physical unit applies.",
+    dtype="text",
+    # required=True,
+    default_value="n/a",
+)
 
 
 def main():
@@ -53,7 +62,8 @@ def main():
         neurodata_type_inc="TimeSeries",
         doc="An extension of TimeSeries to include VAME latent space data.",
         quantity="?",
-        datasets=[make_dataset("float32", "Latent-space vectors over time.")],
+        datasets=[make_dataset("float32", "Latent-space vectors over time.", shape=(None, None))],
+        attributes=[UNIT_ATTR],
     )
 
     motif_series = NWBGroupSpec(
@@ -61,8 +71,9 @@ def main():
         neurodata_type_inc="TimeSeries",
         doc="An extension of TimeSeries to include VAME motif data.",
         quantity="?",
-        datasets=[make_dataset("int32", "Motif IDs over time.")],
+        datasets=[make_dataset("int32", "Motif IDs over time.", shape=(None,))],
         attributes=[
+            UNIT_ATTR,
             NWBAttributeSpec(
                 name="algorithm",
                 doc="The algorithm used for motif detection.",
@@ -86,8 +97,9 @@ def main():
         neurodata_type_inc="TimeSeries",
         doc="An extension of TimeSeries to include VAME community data.",
         quantity="?",
-        datasets=[make_dataset("int32", "Community IDs over time.")],
+        datasets=[make_dataset("int32", "Community IDs over time.", shape=(None,))],
         attributes=[
+            UNIT_ATTR,
             NWBAttributeSpec(
                 name="algorithm",
                 doc="The algorithm used for community clustering.",
