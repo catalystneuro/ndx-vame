@@ -7,8 +7,15 @@ groups:
   - name: unit
     dtype: text
     default_value: n/a
-    doc: The base unit of measurement. Non-applicable for this data type.
+    doc: No physical unit applies.
     required: false
+  datasets:
+  - name: data
+    dtype: float32
+    shape:
+    - null
+    - null
+    doc: Latent-space vectors over time.
 - neurodata_type_def: MotifSeries
   neurodata_type_inc: TimeSeries
   doc: An extension of TimeSeries to include VAME motif data.
@@ -17,13 +24,19 @@ groups:
   - name: unit
     dtype: text
     default_value: n/a
-    doc: The base unit of measurement. Non-applicable for this data type.
+    doc: No physical unit applies.
     required: false
   - name: algorithm
     dtype: text
     default_value: n/a
     doc: The algorithm used for motif detection.
     required: false
+  datasets:
+  - name: data
+    dtype: int32
+    shape:
+    - null
+    doc: Motif IDs over time.
   links:
   - name: latent_space_series
     target_type: LatentSpaceSeries
@@ -37,13 +50,19 @@ groups:
   - name: unit
     dtype: text
     default_value: n/a
-    doc: The base unit of measurement. Non-applicable for this data type.
+    doc: No physical unit applies.
     required: false
   - name: algorithm
     dtype: text
     default_value: n/a
     doc: The algorithm used for community clustering.
     required: false
+  datasets:
+  - name: data
+    dtype: int32
+    shape:
+    - null
+    doc: Community IDs over time.
   links:
   - name: motif_series
     target_type: MotifSeries
@@ -65,8 +84,15 @@ groups:
     - name: unit
       dtype: text
       default_value: n/a
-      doc: The base unit of measurement. Non-applicable for this data type.
+      doc: No physical unit applies.
       required: false
+    datasets:
+    - name: data
+      dtype: float32
+      shape:
+      - null
+      - null
+      doc: Latent-space vectors over time.
   - neurodata_type_def: MotifSeries
     neurodata_type_inc: TimeSeries
     doc: An extension of TimeSeries to include VAME motif data.
@@ -75,13 +101,19 @@ groups:
     - name: unit
       dtype: text
       default_value: n/a
-      doc: The base unit of measurement. Non-applicable for this data type.
+      doc: No physical unit applies.
       required: false
     - name: algorithm
       dtype: text
       default_value: n/a
       doc: The algorithm used for motif detection.
       required: false
+    datasets:
+    - name: data
+      dtype: int32
+      shape:
+      - null
+      doc: Motif IDs over time.
     links:
     - name: latent_space_series
       target_type: LatentSpaceSeries
@@ -95,13 +127,19 @@ groups:
     - name: unit
       dtype: text
       default_value: n/a
-      doc: The base unit of measurement. Non-applicable for this data type.
+      doc: No physical unit applies.
       required: false
     - name: algorithm
       dtype: text
       default_value: n/a
       doc: The algorithm used for community clustering.
       required: false
+    datasets:
+    - name: data
+      dtype: int32
+      shape:
+      - null
+      doc: Community IDs over time.
     links:
     - name: motif_series
       target_type: MotifSeries
