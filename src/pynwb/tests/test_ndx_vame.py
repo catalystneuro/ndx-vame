@@ -136,9 +136,9 @@ class TestVAME:
             motif_series=motif_series,
         )
 
-        # Create VAMEProject
+        # Create VAMEProject with mock config
         config = {
-            "vame_version": "0.10.0",
+            "vame_version": "0.11.0",
             "project_name": "my_vame_project",
             "creation_datetime": "2025-04-30T15:48:58+00:00",
         }
