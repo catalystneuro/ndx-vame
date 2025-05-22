@@ -11,20 +11,15 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT"
 classifiers = [
-    # TODO: update these classifiers before release
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
 ]
 keywords = ['NeurodataWithoutBorders', 'NWB', 'nwb-extension', 'ndx-extension']
-dependencies = ["pynwb>=2.8.0", "hdmf>=3.14.1", "ndx-pose>=0.2.1"]
+dependencies = ["pynwb>=2.8.0", "hdmf>=3.14.1", "ndx-pose>=0.2.2"]
 
 [project.optional-dependencies]
 test = [
@@ -46,7 +41,7 @@ dev = [
 ]
 
 # minimum requirements of project dependencies for testing (see .github/workflows/run_all_tests.yml)
-min-reqs = ["pynwb==2.8.0", "hdmf==3.14.1"]
+min-reqs = ["pynwb==2.8.0", "hdmf==3.14.1", "ndx-pose>=0.2.2"]
 
 [project.urls]
 "Homepage" = "https://github.com/catalystneuro/ndx-vame"
