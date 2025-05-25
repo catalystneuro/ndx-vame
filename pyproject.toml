@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ndx-vame"
-version = "0.2.1"
+version = "0.2.2"
 authors = [{ name = "Luiz Tauffer", email = "luiz.tauffer@catalystneuro.com" }]
 description = "NWB extension for VAME"
 readme = "README.md"

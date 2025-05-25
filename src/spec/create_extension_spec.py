@@ -18,31 +18,13 @@ def make_dataset(dtype: str, doc: str, shape: tuple) -> NWBDatasetSpec:
         dtype=dtype,
         shape=shape,
         doc=doc,
-        # attributes=[
-        #     NWBAttributeSpec(
-        #         name="unit",
-        #         doc="No physical unit applies.",
-        #         dtype="text",
-        #         required=True,
-        #         value="n/a",
-        #     ),
-        # ],
     )
-
-
-UNIT_ATTR = NWBAttributeSpec(
-    name="unit",
-    doc="No physical unit applies.",
-    dtype="text",
-    # required=True,
-    default_value="n/a",
-)
 
 
 def main():
     ns_builder = NWBNamespaceBuilder(
         name="ndx-vame",
-        version="0.2.1",
+        version="0.2.2",
         doc="NWB extension for VAME",
         author=[
             "Luiz Tauffer",
@@ -63,7 +45,6 @@ def main():
         doc="An extension of TimeSeries to include VAME latent space data.",
         quantity="?",
         datasets=[make_dataset("float32", "Latent-space vectors over time.", shape=(None, None))],
-        attributes=[UNIT_ATTR],
     )
 
     motif_series = NWBGroupSpec(
@@ -73,7 +54,6 @@ def main():
         quantity="?",
         datasets=[make_dataset("int32", "Motif IDs over time.", shape=(None,))],
         attributes=[
-            UNIT_ATTR,
             NWBAttributeSpec(
                 name="algorithm",
                 doc="The algorithm used for motif detection.",
@@ -99,7 +79,6 @@ def main():
         quantity="?",
         datasets=[make_dataset("int32", "Community IDs over time.", shape=(None,))],
         attributes=[
-            UNIT_ATTR,
             NWBAttributeSpec(
                 name="algorithm",
                 doc="The algorithm used for community clustering.",
