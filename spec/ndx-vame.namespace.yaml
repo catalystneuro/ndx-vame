@@ -11,4 +11,4 @@ namespaces:
     neurodata_types:
     - PoseEstimation
   - source: ndx-vame.extensions.yaml
-  version: 0.2.1
+  version: 0.2.2
