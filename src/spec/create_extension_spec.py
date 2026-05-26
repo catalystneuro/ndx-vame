@@ -111,7 +111,9 @@ def main():
         ],
         groups=[
             NWBGroupSpec(
-                neurodata_type_inc="LatentSpaceSeries", quantity="?", doc="The latent space series for this VAME project."
+                neurodata_type_inc="LatentSpaceSeries",
+                quantity="?",
+                doc="The latent space series for this VAME project.",
             ),
             NWBGroupSpec(
                 neurodata_type_inc="MotifSeries", quantity="*", doc="The motif series for this VAME project."
