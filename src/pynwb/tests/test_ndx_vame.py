@@ -90,7 +90,7 @@ def pose_estimation(nwbfile):
 
 
 class TestVAMESingleAlgorithm:
-    """Test the VAME extension classes"""
+    """Test the VAME extension classes."""
 
     def test_roundtrip(self, nwbfile, pose_estimation):
         """Test writing and reading VAME data to and from an NWB file."""
