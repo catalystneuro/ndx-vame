@@ -60,15 +60,59 @@ groups:
     dtype: text
     doc: The VAME config, as a stringfied JSON.
   groups:
-  - neurodata_type_inc: LatentSpaceSeries
+  - neurodata_type_def: LatentSpaceSeries
+    neurodata_type_inc: TimeSeries
+    doc: An extension of TimeSeries to include VAME latent space data.
     quantity: '?'
-    doc: The latent space series for this VAME project.
-  - neurodata_type_inc: MotifSeries
+    datasets:
+    - name: data
+      dtype: float32
+      shape:
+      - null
+      - null
+      doc: Latent-space vectors over time.
+  - neurodata_type_def: MotifSeries
+    neurodata_type_inc: TimeSeries
+    doc: An extension of TimeSeries to include VAME motif data.
     quantity: '*'
-    doc: The motif series for this VAME project.
-  - neurodata_type_inc: CommunitySeries
+    attributes:
+    - name: algorithm
+      dtype: text
+      default_value: n/a
+      doc: The algorithm used for motif detection.
+      required: false
+    datasets:
+    - name: data
+      dtype: int32
+      shape:
+      - null
+      doc: Motif IDs over time.
+    links:
+    - name: latent_space_series
+      target_type: LatentSpaceSeries
+      doc: The latent space series associated with this motif series.
+      quantity: '?'
+  - neurodata_type_def: CommunitySeries
+    neurodata_type_inc: TimeSeries
+    doc: An extension of TimeSeries to include VAME community data.
     quantity: '*'
-    doc: The community series for this VAME project.
+    attributes:
+    - name: algorithm
+      dtype: text
+      default_value: n/a
+      doc: The algorithm used for community clustering.
+      required: false
+    datasets:
+    - name: data
+      dtype: int32
+      shape:
+      - null
+      doc: Community IDs over time.
+    links:
+    - name: motif_series
+      target_type: MotifSeries
+      doc: The motif series associated with this community series.
+      quantity: '?'
   links:
   - name: pose_estimation
     target_type: PoseEstimation
