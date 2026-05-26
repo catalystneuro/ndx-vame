@@ -10,26 +10,34 @@ Version |release| |today|
 Data Structure Overview
 =======================
 
-This extension defines three main neurodata types:
+This extension defines four main neurodata types:
 
-1. **MotifSeries**: Extends ``TimeSeries`` to store VAME motif data. Each column in the data represents a different motif, and each row represents a time point.
+1. **LatentSpaceSeries**: Extends ``TimeSeries`` to store VAME latent space vectors over time.
 
-2. **CommunitySeries**: Extends ``TimeSeries`` to store VAME community data. Communities are groups of similar motifs. Each column in the data represents a different community, and each row represents a time point.
+2. **MotifSeries**: Extends ``TimeSeries`` to store VAME motif IDs over time. Optionally links to the ``LatentSpaceSeries`` used to generate it.
 
-3. **VAMEGroup**: A container for VAME data that includes both MotifSeries and CommunitySeries, and links to the original PoseEstimation data used to generate the VAME analysis.
+3. **CommunitySeries**: Extends ``TimeSeries`` to store VAME community IDs over time. Optionally links to the ``MotifSeries`` used to generate it.
+
+4. **VAMEProject**: A container for VAME data. Holds one optional ``LatentSpaceSeries``, zero or more ``MotifSeries``, and zero or more ``CommunitySeries``. Links to the original ``PoseEstimation`` data used as input.
 
 Relationship Diagram
 --------------------
 
 .. code-block:: text
 
-    VAMEGroup
-    ├── motif_series (MotifSeries)
-    ├── community_series (CommunitySeries)
-    │   └── motif_series (link to MotifSeries)
-    └── pose_estimation (link to PoseEstimation)
+    VAMEProject
+    ├── latent_space_series (LatentSpaceSeries, optional)
+    ├── MotifSeriesHmm (MotifSeries)
+    │   └── latent_space_series (link to LatentSpaceSeries, optional)
+    ├── MotifSeriesKmeans (MotifSeries)
+    │   └── latent_space_series (link to LatentSpaceSeries, optional)
+    ├── CommunitySeriesHmm (CommunitySeries)
+    │   └── motif_series (link to MotifSeries, optional)
+    ├── CommunitySeriesKmeans (CommunitySeries)
+    │   └── motif_series (link to MotifSeries, optional)
+    └── pose_estimation (link to PoseEstimation, optional)
 
-The VAMEGroup contains both the MotifSeries and CommunitySeries, and links to the PoseEstimation data that was used as input to VAME. The CommunitySeries also links to the MotifSeries to establish the relationship between motifs and communities.
+A ``VAMEProject`` can hold multiple ``MotifSeries`` and ``CommunitySeries`` (e.g. results from different algorithms). Each ``CommunitySeries`` optionally links back to the ``MotifSeries`` it was derived from.
 
 Detailed Specification
 ======================
