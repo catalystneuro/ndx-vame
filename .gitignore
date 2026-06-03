@@ -172,3 +172,4 @@ cython_debug/
 # Other
 .virtual_documents/
 .vscode/
+uv.lock

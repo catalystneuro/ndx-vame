@@ -149,6 +149,8 @@ class TestVAME:
             motif_series=motif_series,
             community_series=community_series,
             vame_config=vame_config,
+            time_window_samples=30,
+            vame_version="0.11.0",
             pose_estimation=pose_estimation,
         )
 
@@ -182,6 +184,8 @@ class TestVAME:
                 assert read_community_series.rate == 10.0
 
                 assert read_vame_project.vame_config == vame_config
+                assert read_vame_project.time_window_samples == 30
+                assert read_vame_project.vame_version == "0.11.0"
         finally:
             # Clean up the temporary file
             if os.path.exists(temp_file):
