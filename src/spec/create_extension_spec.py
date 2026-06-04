@@ -24,7 +24,7 @@ def make_dataset(dtype: str, doc: str, shape: tuple) -> NWBDatasetSpec:
 def main():
     ns_builder = NWBNamespaceBuilder(
         name="ndx-vame",
-        version="0.2.2",
+        version="0.3.0",
         doc="NWB extension for VAME",
         author=[
             "Luiz Tauffer",
@@ -42,7 +42,11 @@ def main():
     latent_space_series = NWBGroupSpec(
         neurodata_type_def="LatentSpaceSeries",
         neurodata_type_inc="TimeSeries",
-        doc="An extension of TimeSeries to include VAME latent space data.",
+        doc=(
+            "An extension of TimeSeries to include VAME latent space data. "
+            "Computed with a sliding window of time_window_samples, so it is shorter than the source "
+            "pose/video and its timing should be offset by time_window_samples/2 relative to the pose or video."
+        ),
         quantity="?",
         datasets=[make_dataset("float32", "Latent-space vectors over time.", shape=(None, None))],
     )
@@ -50,7 +54,11 @@ def main():
     motif_series = NWBGroupSpec(
         neurodata_type_def="MotifSeries",
         neurodata_type_inc="TimeSeries",
-        doc="An extension of TimeSeries to include VAME motif data.",
+        doc=(
+            "An extension of TimeSeries to include VAME motif data. "
+            "Computed with a sliding window of time_window_samples, so it is shorter than the source "
+            "pose/video and its timing should be offset by time_window_samples/2 relative to the pose or video."
+        ),
         quantity="?",
         datasets=[make_dataset("int32", "Motif IDs over time.", shape=(None,))],
         attributes=[
@@ -75,7 +83,11 @@ def main():
     community_series = NWBGroupSpec(
         neurodata_type_def="CommunitySeries",
         neurodata_type_inc="TimeSeries",
-        doc="An extension of TimeSeries to include VAME community data.",
+        doc=(
+            "An extension of TimeSeries to include VAME community data. "
+            "Computed with a sliding window of time_window_samples, so it is shorter than the source "
+            "pose/video and its timing should be offset by time_window_samples/2 relative to the pose or video."
+        ),
         quantity="?",
         datasets=[make_dataset("int32", "Community IDs over time.", shape=(None,))],
         attributes=[
@@ -105,6 +117,21 @@ def main():
             NWBAttributeSpec(
                 name="vame_config",
                 doc="The VAME config, as a stringfied JSON.",
+                dtype="text",
+                required=True,
+            ),
+            NWBAttributeSpec(
+                name="time_window_samples",
+                doc=(
+                    "VAME's time_window parameter: the number of samples in each sliding window "
+                    "(the window of source samples each value summarizes)."
+                ),
+                dtype="int32",
+                required=True,
+            ),
+            NWBAttributeSpec(
+                name="vame_version",
+                doc="Version of the VAME package used to produce this data.",
                 dtype="text",
                 required=True,
             ),
