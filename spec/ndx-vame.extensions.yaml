@@ -78,13 +78,22 @@ groups:
   groups:
   - neurodata_type_inc: LatentSpaceSeries
     quantity: '?'
-    doc: The latent space series for this VAME project.
+    doc: An extension of TimeSeries to include VAME latent space data. Computed 
+      with a sliding window of time_window_samples, so it is shorter than the 
+      source pose/video and its timing should be offset by time_window_samples/2
+      relative to the pose or video.
   - neurodata_type_inc: MotifSeries
     quantity: '*'
-    doc: The motif series for this VAME project.
+    doc: An extension of TimeSeries to include VAME motif data. Computed with a 
+      sliding window of time_window_samples, so it is shorter than the source 
+      pose/video and its timing should be offset by time_window_samples/2 
+      relative to the pose or video.
   - neurodata_type_inc: CommunitySeries
     quantity: '*'
-    doc: The community series for this VAME project.
+    doc: An extension of TimeSeries to include VAME community data. Computed 
+      with a sliding window of time_window_samples, so it is shorter than the 
+      source pose/video and its timing should be offset by time_window_samples/2
+      relative to the pose or video.
   links:
   - name: pose_estimation
     target_type: PoseEstimation
