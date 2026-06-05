@@ -250,6 +250,8 @@ class TestVAMESingleAlgorithm:
                 motif_series=[motif_series_hmm, motif_series_kmeans],
                 community_series=[community_series_hmm, community_series_kmeans],
                 vame_config=vame_config,
+                time_window_samples=30,
+                vame_version="0.11.0",
             )
 
             behavior_pm.add(vame_project)
