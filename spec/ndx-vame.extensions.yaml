@@ -1,7 +1,10 @@
 groups:
 - neurodata_type_def: LatentSpaceSeries
   neurodata_type_inc: TimeSeries
-  doc: An extension of TimeSeries to include VAME latent space data.
+  doc: An extension of TimeSeries to include VAME latent space data. Computed 
+    with a sliding window of time_window_samples, so it is shorter than the 
+    source pose/video and its timing should be offset by time_window_samples/2 
+    relative to the pose or video.
   quantity: '?'
   datasets:
   - name: data
@@ -12,7 +15,10 @@ groups:
     doc: Latent-space vectors over time.
 - neurodata_type_def: MotifSeries
   neurodata_type_inc: TimeSeries
-  doc: An extension of TimeSeries to include VAME motif data.
+  doc: An extension of TimeSeries to include VAME motif data. Computed with a 
+    sliding window of time_window_samples, so it is shorter than the source 
+    pose/video and its timing should be offset by time_window_samples/2 relative
+    to the pose or video.
   quantity: '?'
   attributes:
   - name: algorithm
@@ -33,7 +39,10 @@ groups:
     quantity: '?'
 - neurodata_type_def: CommunitySeries
   neurodata_type_inc: TimeSeries
-  doc: An extension of TimeSeries to include VAME community data.
+  doc: An extension of TimeSeries to include VAME community data. Computed with 
+    a sliding window of time_window_samples, so it is shorter than the source 
+    pose/video and its timing should be offset by time_window_samples/2 relative
+    to the pose or video.
   quantity: '?'
   attributes:
   - name: algorithm
@@ -59,7 +68,58 @@ groups:
   - name: vame_config
     dtype: text
     doc: The VAME config, as a stringfied JSON.
+  - name: time_window_samples
+    dtype: int32
+    doc: "VAME's time_window parameter: the number of samples in each sliding window
+      (the window of source samples each value summarizes)."
+  - name: vame_version
+    dtype: text
+    doc: Version of the VAME package used to produce this data.
   groups:
+  - neurodata_type_def: LatentSpaceSeries
+    neurodata_type_inc: TimeSeries
+    doc: An extension of TimeSeries to include VAME latent space data. Computed 
+      with a sliding window of time_window_samples, so it is shorter than the 
+      source pose/video and its timing should be offset by time_window_samples/2
+      relative to the pose or video.
+    quantity: '?'
+    datasets:
+    - name: data
+      dtype: float32
+      shape:
+      - null
+      - null
+      doc: Latent-space vectors over time.
+  - neurodata_type_def: MotifSeries
+    neurodata_type_inc: TimeSeries
+    doc: An extension of TimeSeries to include VAME motif data. Computed with a 
+      sliding window of time_window_samples, so it is shorter than the source 
+      pose/video and its timing should be offset by time_window_samples/2 
+      relative to the pose or video.
+    quantity: '?'
+    attributes:
+    - name: algorithm
+      dtype: text
+      default_value: n/a
+      doc: The algorithm used for motif detection.
+      required: false
+    datasets:
+    - name: data
+      dtype: int32
+      shape:
+      - null
+      doc: Motif IDs over time.
+    links:
+    - name: latent_space_series
+      target_type: LatentSpaceSeries
+      doc: The latent space series associated with this motif series.
+      quantity: '?'
+  - neurodata_type_def: CommunitySeries
+    neurodata_type_inc: TimeSeries
+    doc: An extension of TimeSeries to include VAME community data. Computed 
+      with a sliding window of time_window_samples, so it is shorter than the 
+      source pose/video and its timing should be offset by time_window_samples/2
+      relative to the pose or video.
   - neurodata_type_inc: LatentSpaceSeries
     quantity: '?'
     doc: The latent space series for this VAME project.
