@@ -89,7 +89,7 @@ def pose_estimation(nwbfile):
     return pose_estimation
 
 
-class TestVAME:
+class TestVAMESingleAlgorithm:
     """Test the VAME extension classes."""
 
     def test_roundtrip(self, nwbfile, pose_estimation):
@@ -146,8 +146,8 @@ class TestVAME:
         vame_project = VAMEProject(
             name="VAMEProject",
             latent_space_series=latent_space_series,
-            motif_series=motif_series,
-            community_series=community_series,
+            motif_series=[motif_series],
+            community_series=[community_series],
             vame_config=vame_config,
             time_window_samples=30,
             vame_version="0.11.0",
@@ -173,12 +173,12 @@ class TestVAME:
                 read_vame_project = nwbfile.processing["behavior"].data_interfaces["VAMEProject"]
                 assert read_vame_project.name == "VAMEProject"
 
-                read_motif_series = read_vame_project.motif_series
+                read_motif_series = read_vame_project.motif_series["MotifSeries"]
                 assert read_motif_series.name == "MotifSeries"
                 assert np.array_equal(read_motif_series.data[:], motif_data)
                 assert read_motif_series.rate == 10.0
 
-                read_community_series = read_vame_project.community_series
+                read_community_series = read_vame_project.community_series["CommunitySeries"]
                 assert read_community_series.name == "CommunitySeries"
                 assert np.array_equal(read_community_series.data[:], community_data)
                 assert read_community_series.rate == 10.0
@@ -190,3 +190,106 @@ class TestVAME:
             # Clean up the temporary file
             if os.path.exists(temp_file):
                 os.remove(temp_file)
+
+    class TestVAMEMultipleAlgorithms:
+        """Test that a VAMEProject can hold multiple MotifSeries and CommunitySeries."""
+
+        def test_roundtrip(self, nwbfile, pose_estimation):
+            behavior_pm = nwbfile.create_processing_module(
+                name="behavior",
+                description="processed behavioral data",
+            )
+            behavior_pm.add(pose_estimation)
+
+            n_samples = 50
+            rate = 10.0
+            latent_space_series = LatentSpaceSeries(
+                name="LatentSpaceSeries",
+                data=np.random.rand(n_samples, 10),
+                rate=rate,
+            )
+
+            motif_data_hmm = np.random.randint(0, 10, size=n_samples)
+            motif_series_hmm = MotifSeries(
+                name="MotifSeriesHmm",
+                data=motif_data_hmm,
+                rate=rate,
+                algorithm="hmm",
+            )
+
+            motif_data_kmeans = np.random.randint(0, 10, size=n_samples)
+            motif_series_kmeans = MotifSeries(
+                name="MotifSeriesKmeans",
+                data=motif_data_kmeans,
+                rate=rate,
+                algorithm="kmeans",
+            )
+
+            community_data = np.random.randint(0, 3, size=n_samples)
+            community_series_hmm = CommunitySeries(
+            name="CommunitySeriesHmm",
+            data=community_data,
+            rate=rate,
+            algorithm="hierarchical_clustering",
+            motif_series=motif_series_hmm,
+            )
+
+            community_data_kmeans = np.random.randint(0, 3, size=n_samples)
+            community_series_kmeans = CommunitySeries(
+                name="CommunitySeriesKmeans",
+                data=community_data_kmeans,
+                rate=rate,
+                algorithm="graph_clustering",
+                motif_series=motif_series_kmeans,
+            )
+
+            vame_config = json.dumps({"vame_version": "0.11.0", "project_name": "multi_series_project"})
+            vame_project = VAMEProject(
+                name="VAMEProject",
+                latent_space_series=latent_space_series,
+                motif_series=[motif_series_hmm, motif_series_kmeans],
+                community_series=[community_series_hmm, community_series_kmeans],
+                vame_config=vame_config,
+                time_window_samples=30,
+                vame_version="0.11.0",
+            )
+
+            behavior_pm.add(vame_project)
+
+            # Verify in-memory before roundtrip
+            assert len(vame_project.motif_series) == 2
+            assert "MotifSeriesHmm" in vame_project.motif_series
+            assert "MotifSeriesKmeans" in vame_project.motif_series
+            assert len(vame_project.community_series) == 2
+            assert "CommunitySeriesHmm" in vame_project.community_series
+            assert "CommunitySeriesKmeans" in vame_project.community_series
+
+            temp_file = os.path.join(tempfile.gettempdir(), "test_vame_multi.nwb")
+            try:
+                with NWBHDF5IO(temp_file, "w") as io:
+                    io.write(nwbfile)
+
+                with NWBHDF5IO(temp_file, "r") as io:
+                    read_nwbfile = io.read()
+                    read_vame_project = read_nwbfile.processing["behavior"].data_interfaces["VAMEProject"]
+
+                    assert len(read_vame_project.motif_series) == 2
+                    read_hmm = read_vame_project.motif_series["MotifSeriesHmm"]
+                    assert np.array_equal(read_hmm.data[:], motif_data_hmm)
+                    assert read_hmm.algorithm == "hmm"
+
+                    read_kmeans = read_vame_project.motif_series["MotifSeriesKmeans"]
+                    assert np.array_equal(read_kmeans.data[:], motif_data_kmeans)
+                    assert read_kmeans.algorithm == "kmeans"
+
+                    assert len(read_vame_project.community_series) == 2
+                    read_hmm = read_vame_project.community_series["CommunitySeriesHmm"]
+                    assert np.array_equal(read_hmm.data[:], community_data)
+                    assert read_hmm.algorithm == "hierarchical_clustering"
+
+                    read_kmeans = read_vame_project.community_series["CommunitySeriesKmeans"]
+                    assert np.array_equal(read_kmeans.data[:], community_data_kmeans)
+                    assert read_kmeans.algorithm == "graph_clustering"
+            finally:
+                if os.path.exists(temp_file):
+                    os.remove(temp_file)

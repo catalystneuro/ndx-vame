@@ -137,9 +137,17 @@ def main():
             ),
         ],
         groups=[
-            latent_space_series,
-            motif_series,
-            community_series,
+            NWBGroupSpec(
+                neurodata_type_inc="LatentSpaceSeries",
+                quantity="?",
+                doc="The latent space series for this VAME project.",
+            ),
+            NWBGroupSpec(
+                neurodata_type_inc="MotifSeries", quantity="*", doc="The motif series for this VAME project."
+            ),
+            NWBGroupSpec(
+                neurodata_type_inc="CommunitySeries", quantity="*", doc="The community series for this VAME project."
+            ),
         ],
         links=[
             NWBLinkSpec(
