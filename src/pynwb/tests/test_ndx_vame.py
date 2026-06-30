@@ -8,6 +8,7 @@ import os
 from pynwb import NWBFile, NWBHDF5IO
 from pynwb.file import Subject
 from ndx_pose import PoseEstimationSeries, PoseEstimation
+from ndx_ethogram import EthogramBouts
 from ndx_vame import VAMEProject, MotifSeries, CommunitySeries, LatentSpaceSeries
 
 
@@ -293,3 +294,125 @@ class TestVAMESingleAlgorithm:
             finally:
                 if os.path.exists(temp_file):
                     os.remove(temp_file)
+
+
+def _make_ethogram_bouts(
+    name: str, labels: np.ndarray, rate: float, starting_time: float = 0.0
+) -> EthogramBouts:
+    """Run-length encode a label array into an EthogramBouts table."""
+    labels = np.asarray(labels)
+    boundaries = np.flatnonzero(np.diff(labels)) + 1
+    starts = np.concatenate([[0], boundaries])
+    stops = np.concatenate([boundaries, [len(labels)]])
+
+    bouts = EthogramBouts(name=name, labeling_method="automated", source_software="VAME")
+    for start, stop in zip(starts, stops):
+        bouts.add_row(
+            start_time=starting_time + start / rate,
+            stop_time=starting_time + stop / rate,
+            label=str(labels[start]),
+        )
+    return bouts
+
+
+class TestEthogramLinks:
+    """Test optional EthogramBouts links on MotifSeries and CommunitySeries."""
+
+    def test_motif_series_ethogram_bouts_roundtrip(self, nwbfile):
+        """MotifSeries.ethogram_bouts link survives HDF5 roundtrip; bout times honour starting_time."""
+        behavior_pm = nwbfile.create_processing_module("behavior", "processed behavioral data")
+
+        time_window_samples = 30
+        rate = 10.0
+        starting_time = (time_window_samples // 2) / rate  # 1.5 s
+        motif_data = np.array([0] * 10 + [1] * 15 + [2] * 10 + [0] * 15, dtype=np.int32)
+
+        ethogram_bouts = _make_ethogram_bouts(
+            name="MotifBouts",
+            labels=motif_data,
+            rate=rate,
+            starting_time=starting_time,
+        )
+        behavior_pm.add(ethogram_bouts)
+
+        motif_series = MotifSeries(
+            name="MotifSeries",
+            data=motif_data,
+            rate=rate,
+            starting_time=starting_time,
+            ethogram_bouts=ethogram_bouts,
+        )
+        vame_project = VAMEProject(
+            name="VAMEProject",
+            motif_series=[motif_series],
+            vame_config=json.dumps({}),
+            time_window_samples=time_window_samples,
+            vame_version="0.11.0",
+        )
+        behavior_pm.add(vame_project)
+
+        temp_file = os.path.join(tempfile.gettempdir(), "test_motif_ethogram.nwb")
+        try:
+            with NWBHDF5IO(temp_file, "w") as io:
+                io.write(nwbfile)
+
+            with NWBHDF5IO(temp_file, "r") as io:
+                read_nwb = io.read()
+                read_ms = read_nwb.processing["behavior"]["VAMEProject"].motif_series["MotifSeries"]
+                assert read_ms.ethogram_bouts is not None
+                assert read_ms.ethogram_bouts.name == "MotifBouts"
+                assert len(read_ms.ethogram_bouts) == 4  # 4 contiguous runs
+                assert read_ms.starting_time == starting_time
+                assert read_ms.ethogram_bouts["start_time"][0] == starting_time
+        finally:
+            if os.path.exists(temp_file):
+                os.remove(temp_file)
+
+    def test_community_series_ethogram_bouts_roundtrip(self, nwbfile):
+        """CommunitySeries.ethogram_bouts link survives HDF5 roundtrip; bout times honour starting_time."""
+        behavior_pm = nwbfile.create_processing_module("behavior", "processed behavioral data")
+
+        time_window_samples = 30
+        rate = 10.0
+        starting_time = (time_window_samples // 2) / rate  # 1.5 s
+        motif_data = np.array([0] * 20 + [1] * 20, dtype=np.int32)
+        community_data = np.array([0] * 20 + [1] * 20, dtype=np.int32)
+
+        motif_series = MotifSeries(name="MotifSeries", data=motif_data, rate=rate, starting_time=starting_time)
+        community_bouts = _make_ethogram_bouts("CommunityBouts", community_data, rate, starting_time)
+        behavior_pm.add(community_bouts)
+
+        community_series = CommunitySeries(
+            name="CommunitySeries",
+            data=community_data,
+            rate=rate,
+            starting_time=starting_time,
+            motif_series=motif_series,
+            ethogram_bouts=community_bouts,
+        )
+        vame_project = VAMEProject(
+            name="VAMEProject",
+            motif_series=[motif_series],
+            community_series=[community_series],
+            vame_config=json.dumps({}),
+            time_window_samples=time_window_samples,
+            vame_version="0.11.0",
+        )
+        behavior_pm.add(vame_project)
+
+        temp_file = os.path.join(tempfile.gettempdir(), "test_community_ethogram.nwb")
+        try:
+            with NWBHDF5IO(temp_file, "w") as io:
+                io.write(nwbfile)
+
+            with NWBHDF5IO(temp_file, "r") as io:
+                read_nwb = io.read()
+                read_cs = read_nwb.processing["behavior"]["VAMEProject"].community_series["CommunitySeries"]
+                assert read_cs.ethogram_bouts is not None
+                assert read_cs.ethogram_bouts.name == "CommunityBouts"
+                assert len(read_cs.ethogram_bouts) == 2  # 2 contiguous runs
+                assert read_cs.starting_time == starting_time
+                assert read_cs.ethogram_bouts["start_time"][0] == starting_time
+        finally:
+            if os.path.exists(temp_file):
+                os.remove(temp_file)
