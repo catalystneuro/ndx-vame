@@ -24,7 +24,7 @@ def make_dataset(dtype: str, doc: str, shape: tuple) -> NWBDatasetSpec:
 def main():
     ns_builder = NWBNamespaceBuilder(
         name="ndx-vame",
-        version="0.3.0",
+        version="0.4.0",
         doc="NWB extension for VAME",
         author=[
             "Luiz Tauffer",
@@ -35,6 +35,7 @@ def main():
     )
     ns_builder.include_namespace("core")
     ns_builder.include_type("PoseEstimation", namespace="ndx-pose")
+    ns_builder.include_type("EthogramBouts", namespace="ndx-ethogram")
 
     # Define your new data types
     # see https://pynwb.readthedocs.io/en/stable/tutorials/general/extensions.html
@@ -77,6 +78,12 @@ def main():
                 target_type="LatentSpaceSeries",
                 quantity="?",
             ),
+            NWBLinkSpec(
+                name="ethogram_bouts",
+                doc="EthogramBouts derived from this MotifSeries via run-length encoding.",
+                target_type="EthogramBouts",
+                quantity="?",
+            ),
         ],
     )
 
@@ -104,6 +111,12 @@ def main():
                 name="motif_series",
                 doc="The motif series associated with this community series.",
                 target_type="MotifSeries",
+                quantity="?",
+            ),
+            NWBLinkSpec(
+                name="ethogram_bouts",
+                doc="EthogramBouts derived from this CommunitySeries via run-length encoding.",
+                target_type="EthogramBouts",
                 quantity="?",
             ),
         ],
