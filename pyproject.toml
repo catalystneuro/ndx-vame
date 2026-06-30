@@ -4,11 +4,11 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ndx-vame"
-version = "0.3.1"
+version = "0.4.0"
 authors = [{ name = "Luiz Tauffer", email = "luiz.tauffer@catalystneuro.com" }]
 description = "NWB extension for VAME"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = "MIT"
 classifiers = [
     "Programming Language :: Python :: 3.11",
@@ -19,7 +19,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
 ]
 keywords = ['NeurodataWithoutBorders', 'NWB', 'nwb-extension', 'ndx-extension']
-dependencies = ["pynwb>=2.8.0", "hdmf>=3.14.1", "ndx-pose>=0.2.2"]
+dependencies = ["pynwb>=2.8.0", "hdmf>=3.14.1", "ndx-pose>=0.2.2", "ndx-ethogram>=0.1.0"]
 
 [project.optional-dependencies]
 test = [
@@ -41,7 +41,7 @@ dev = [
 ]
 
 # minimum requirements of project dependencies for testing (see .github/workflows/run_all_tests.yml)
-min-reqs = ["pynwb==2.8.0", "hdmf==3.14.1", "ndx-pose>=0.2.2"]
+min-reqs = ["pynwb==3.0.0", "hdmf==4.0.0", "ndx-pose>=0.2.2", "ndx-ethogram>=0.1.0"]
 
 [project.urls]
 "Homepage" = "https://github.com/catalystneuro/ndx-vame"
