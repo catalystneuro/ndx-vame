@@ -24,7 +24,7 @@ def make_dataset(dtype: str, doc: str, shape: tuple) -> NWBDatasetSpec:
 def main():
     ns_builder = NWBNamespaceBuilder(
         name="ndx-vame",
-        version="0.3.0",
+        version="0.3.2",
         doc="NWB extension for VAME",
         author=[
             "Luiz Tauffer",
