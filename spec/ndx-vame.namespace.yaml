@@ -10,8 +10,5 @@ namespaces:
   - namespace: ndx-pose
     neurodata_types:
     - PoseEstimation
-  - namespace: ndx-ethogram
-    neurodata_types:
-    - EthogramBouts
   - source: ndx-vame.extensions.yaml
   version: 0.4.0

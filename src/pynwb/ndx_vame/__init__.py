@@ -3,10 +3,9 @@ import os
 from pynwb import load_namespaces, get_class, TimeSeries
 from hdmf.utils import get_docval, docval
 
-# NOTE: ndx-pose and ndx-ethogram must be imported before load_namespaces so their
-# namespaces are registered in the global type map.
+# NOTE: ndx-pose needs to be imported first because loading the ndx-vame namespace depends on
+# having the ndx-pose namespace loaded into the global type map.
 from ndx_pose import PoseEstimation
-from ndx_ethogram import EthogramBouts
 
 
 # Get path to the namespace.yaml file with the expected location when installed not in editable mode

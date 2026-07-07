@@ -37,10 +37,6 @@ groups:
     target_type: LatentSpaceSeries
     doc: The latent space series associated with this motif series.
     quantity: '?'
-  - name: ethogram_bouts
-    target_type: EthogramBouts
-    doc: EthogramBouts derived from this MotifSeries via run-length encoding.
-    quantity: '?'
 - neurodata_type_def: CommunitySeries
   neurodata_type_inc: TimeSeries
   doc: An extension of TimeSeries to include VAME community data. Computed with 
@@ -64,11 +60,6 @@ groups:
   - name: motif_series
     target_type: MotifSeries
     doc: The motif series associated with this community series.
-    quantity: '?'
-  - name: ethogram_bouts
-    target_type: EthogramBouts
-    doc: EthogramBouts derived from this CommunitySeries via run-length 
-      encoding.
     quantity: '?'
 - neurodata_type_def: VAMEProject
   neurodata_type_inc: NWBDataInterface
